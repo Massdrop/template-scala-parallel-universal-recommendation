@@ -709,9 +709,6 @@ class URAlgorithm(val ap: URAlgorithmParams)
         // set time limit to avoid super long DB access
         timeout = Duration(200, "millis")).toList
     } catch {
-      case e: scala.concurrent.TimeoutException =>
-        logger.error(s"Timeout when read recent events. Empty list is used. $e")
-        Seq.empty[Event]
       case e: NoSuchElementException => // todo: bad form to use an exception to check if there is a user id
         logger.info("No user id for recs, returning similar items for the item specified")
         Seq.empty[Event]
